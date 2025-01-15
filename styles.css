@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    line-height: 1.6;
+}
+
+/* Header Styling */
+.header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    background: #2c3e50;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.1);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Main Content Styling */
+.main-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.command-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.command-details {
+    padding: 30px;
+}
+
+.command-details h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.command-details h3 {
+    color: #2c3e50;
+    margin: 30px 0 15px;
+    font-size: 1.5em;
+}
+
+.command-details p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Code Blocks */
+pre {
+    background: #2d3436;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+code {
+    font-family: 'Courier New', monospace;
+}
+
+.syntax-box {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+/* Lists */
+.key-options ul,
+.interactive-keys ul,
+.tips ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.key-options li,
+.interactive-keys li,
+.tips li {
+    margin: 10px 0;
+    position: relative;
+}
+
+.key-options li:before,
+.interactive-keys li:before,
+.tips li:before {
+    content: "•";
+    color: #3498db;
+    font-weight: bold;
+    position: absolute;
+    left: -20px;
+}
+
+/* Keyboard Keys */
+kbd {
+    background-color: #f8f9fa;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+    color: #333;
+    display: inline-block;
+    font-size: 0.9em;
+    padding: 2px 6px;
+    margin: 0 2px;
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    margin: 30px 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Examples Section */
+.examples pre {
+    margin: 15px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .header p {
+        font-size: 1em;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-links a {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .command-details {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .nav-links a {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+}

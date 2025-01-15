@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scp Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f0f2f5;
+    line-height: 1.6;
+}
+
+/* Header Styling */
+.header {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* Navigation Bar Styling */
+.navbar {
+    background: #2c3e50;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.1);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background: #3498db;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Main Content Styling */
+.main-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.command-section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.command-details {
+    padding: 30px;
+}
+
+.command-details h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.command-details h3 {
+    color: #2c3e50;
+    margin: 30px 0 15px;
+    font-size: 1.5em;
+}
+
+.command-details p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Code Blocks */
+pre {
+    background: #2d3436;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+code {
+    font-family: 'Courier New', monospace;
+}
+
+.syntax-box {
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+/* Lists */
+.key-options ul,
+.interactive-keys ul,
+.tips ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.key-options li,
+.interactive-keys li,
+.tips li {
+    margin: 10px 0;
+    position: relative;
+}
+
+.key-options li:before,
+.interactive-keys li:before,
+.tips li:before {
+    content: "•";
+    color: #3498db;
+    font-weight: bold;
+    position: absolute;
+    left: -20px;
+}
+
+/* Keyboard Keys */
+kbd {
+    background-color: #f8f9fa;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+    color: #333;
+    display: inline-block;
+    font-size: 0.9em;
+    padding: 2px 6px;
+    margin: 0 2px;
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    margin: 30px 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* Examples Section */
+.examples pre {
+    margin: 15px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        padding: 20px;
+    }
+
+    .header h1 {
+        font-size: 2em;
+    }
+
+    .header p {
+        font-size: 1em;
+    }
+
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .nav-links {
+        gap: 8px;
+    }
+
+    .nav-links a {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .command-details {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .nav-links a {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+}
+</style>
+
+    <header class="header">
+        <h1>Linux Command: scp</h1>
+        <p>Secure Copy - Transfer files securely between systems</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html" class="active">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>scp</code> (Secure Copy) command securely copies files between hosts on a network using SSH for data transfer. It provides encryption and authentication.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>scp source target           # Basic copy
+scp file user@host:path     # Copy to remote
+scp user@host:file local    # Copy from remote
+scp -r directory host:path  # Copy directory</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-r</code> - Recursively copy directories</li>
+                        <li><code>-P port</code> - Specify port number</li>
+                        <li><code>-i key</code> - Identity file (private key)</li>
+                        <li><code>-C</code> - Enable compression</li>
+                        <li><code>-p</code> - Preserve file attributes</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Copy file to remote server
+scp file.txt user@example.com:/path/to/destination
+
+# Copy from remote to local
+scp user@example.com:/path/to/file.txt local.txt
+
+# Copy entire directory
+scp -r directory/ user@example.com:/path/
+
+# Copy with specific port
+scp -P 2222 file.txt user@example.com:~
+
+# Copy with compression
+scp -C large_file.zip user@example.com:~
+
+# Copy multiple files
+scp file1.txt file2.txt user@example.com:~/files/</code></pre>
+                </div>
+
+                <div class="transfer-options">
+                    <h3>Transfer Options</h3>
+                    <table class="options-table">
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>-r</td>
+                            <td>Recursive copy</td>
+                            <td>scp -r dir/ host:path/</td>
+                        </tr>
+                        <tr>
+                            <td>-p</td>
+                            <td>Preserve modification times</td>
+                            <td>scp -p file.txt host:file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-C</td>
+                            <td>Enable compression</td>
+                            <td>scp -C large.zip host:</td>
+                        </tr>
+                        <tr>
+                            <td>-l limit</td>
+                            <td>Limit bandwidth (Kbit/s)</td>
+                            <td>scp -l 1000 file.txt host:</td>
+                        </tr>
+                        <tr>
+                            <td>-P port</td>
+                            <td>Specify port number</td>
+                            <td>scp -P 2222 file.txt host:</td>
+                        </tr>
+                        <tr>
+                            <td>-i identity_file</td>
+                            <td>Identity file for auth</td>
+                            <td>scp -i key.pem file.txt host:</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Copy with specific key and port
+scp -i ~/.ssh/custom_key -P 2222 file.txt user@host:~/
+
+# Copy with bandwidth limit
+scp -l 1000 large_file.zip user@host:~/
+
+# Preserve file attributes
+scp -p important.txt user@host:~/
+
+# Copy between remote hosts
+scp user1@host1:/file user2@host2:/path/
+
+# Copy multiple files
+scp file1.txt file2.txt user@host:~/
+
+# Copy excluding files
+rsync --exclude='*.tmp' -e ssh src/ user@host:dest/</code></pre>
+                </div>
+
+                <div class="performance-tuning">
+                    <h3>Performance Optimization</h3>
+                    <pre><code># Fast transfer configuration
+scp -o 'Compression=yes' \
+    -o 'CompressionLevel=9' \
+    -o 'Ciphers=aes128-gcm@openssh.com' \
+    large_file.txt host:
+
+# Parallel transfer script
+parallel_scp() {
+    for file in "$@"; do
+        scp "$file" user@host:~/uploads/ &
+    done
+    wait
+}
+
+# Resume interrupted transfer
+rsync -P --rsh=ssh file.txt user@host:~/
+
+# Monitor transfer speed
+pv file.txt | ssh user@host 'cat > file.txt'</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Backup script with timestamp
+backup_to_remote() {
+    local date=$(date +%Y%m%d)
+    tar czf - "$1" | \
+    ssh user@host "cat > backup_${date}.tar.gz"
+}
+
+# Sync directories
+sync_dirs() {
+    local src="$1"
+    local dest="$2"
+    rsync -avz -e ssh "$src" "user@host:$dest"
+}
+
+# Multi-host transfer
+for host in $(cat hosts.txt); do
+    scp -o BatchMode=yes \
+        file.txt "$host:~/data/"
+done</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Connection Issues:</strong>
+                            <ul>
+                                <li>Check SSH connectivity</li>
+                                <li>Verify port accessibility</li>
+                                <li>Check firewall rules</li>
+                                <li>Test with verbose mode (-v)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Permission Problems:</strong>
+                            <ul>
+                                <li>Check file permissions</li>
+                                <li>Verify directory permissions</li>
+                                <li>Confirm user ownership</li>
+                                <li>Check SSH key permissions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Performance Issues:</strong>
+                            <ul>
+                                <li>Enable compression</li>
+                                <li>Use faster ciphers</li>
+                                <li>Check network bandwidth</li>
+                                <li>Monitor system resources</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use key-based authentication</li>
+                        <li>Compress large transfers</li>
+                        <li>Verify file integrity</li>
+                        <li>Monitor transfer progress</li>
+                        <li>Use bandwidth limits when needed</li>
+                        <li>Implement error handling</li>
+                        <li>Keep logs of transfers</li>
+                        <li>Use rsync for large directories</li>
+                        <li>Regular backup automation</li>
+                        <li>Secure key management</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>rsync:</strong> Better for synchronization
+                            <pre><code>rsync -avz -e ssh source/ user@host:dest/</code></pre>
+                        </li>
+                        <li><strong>sftp:</strong> Interactive file transfer
+                            <pre><code>sftp user@host</code></pre>
+                        </li>
+                        <li><strong>rclone:</strong> Cloud storage support
+                            <pre><code>rclone copy source:path dest:path</code></pre>
+                        </li>
+                        <li><strong>git:</strong> Version-controlled transfers
+                            <pre><code>git clone ssh://user@host/path/repo.git</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
