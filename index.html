@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Commands Reference Guide</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="tux.png">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <img src="tux.png" alt="Tux Logo" class="header-logo">
+            <div class="header-text">
+                <h1>Linux Commands Reference Guide</h1>
+                <p>Essential commands for system administration and network management</p>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="linux_commands.html" class="active">Home</a>
+                <a href="commands/top.html">top</a>
+                <a href="commands/kill.html">kill</a>
+                <a href="commands/ifconfig.html">ifconfig</a>
+                <a href="commands/ping.html">ping</a>
+                <a href="commands/ssh.html">ssh</a>
+                <a href="commands/scp.html">scp</a>
+                <a href="commands/curl.html">curl</a>
+                <a href="commands/diff.html">diff</a>
+                <a href="commands/head.html">head</a>
+                <a href="commands/tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-grid">
+            <div class="command-card">
+                <h2>top</h2>
+                <p>System monitoring tool for process management</p>
+                <a href="commands/top.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>kill</h2>
+                <p>Terminate processes using various signals</p>
+                <a href="commands/kill.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>ifconfig</h2>
+                <p>Configure network interfaces</p>
+                <a href="commands/ifconfig.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>ping</h2>
+                <p>Test network connectivity to remote hosts</p>
+                <a href="commands/ping.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>ssh</h2>
+                <p>Secure shell for remote system access</p>
+                <a href="commands/ssh.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>scp</h2>
+                <p>Securely copy files between systems</p>
+                <a href="commands/scp.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>curl</h2>
+                <p>Transfer data from or to a server</p>
+                <a href="commands/curl.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>diff</h2>
+                <p>Compare files line by line</p>
+                <a href="commands/diff.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>head</h2>
+                <p>Output the beginning of files</p>
+                <a href="commands/head.html" class="view-details">View Details →</a>
+            </div>
+            <div class="command-card">
+                <h2>tail</h2>
+                <p>Output the ending of files</p>
+                <a href="commands/tail.html" class="view-details">View Details →</a>
+            </div>
+        </section>
+    </div>
+
+    <style>
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .command-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .command-card h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .command-card p {
+            color: #666;
+            margin-bottom: 20px;
+            min-height: 48px;
+        }
+
+        .view-details {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+
+        .view-details:hover {
+            transform: translateX(5px);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: auto;
+        }
+
+        .header-text {
+            flex: 1;
+        }
+    </style>
+</body>
+</html>
