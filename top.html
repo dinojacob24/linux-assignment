@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>head Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: head</h1>
+        <p>Display the beginning of files and preview file content</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html" class="active">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>head</code> command displays the beginning of a text file or piped data. It's useful for previewing large files or data streams by showing the first few lines by default.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>head file              # Show first 10 lines
+head -n N file         # Show first N lines
+head -c N file         # Show first N bytes</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-n, --lines</code> - Output the first N lines</li>
+                        <li><code>-c, --bytes</code> - Output the first N bytes</li>
+                        <li><code>-q, --quiet</code> - Suppress file headers</li>
+                        <li><code>-v, --verbose</code> - Show file headers</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Show first 10 lines
+head file.txt
+
+# Show first 50 lines
+head -n 50 file.txt
+
+# Show first 100 bytes
+head -c 100 file.txt
+
+# Show first 20 lines without headers
+head -n 20 -q file1.txt file2.txt
+
+# Show first 5 lines with file headers
+head -n 5 -v file1.txt file2.txt</code></pre>
+                </div>
+
+                <div class="basic-usage">
+                    <h3>Basic Usage</h3>
+                    <table class="options-table">
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>-n N</td>
+                            <td>Display first N lines</td>
+                            <td>head -n 20 file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-c N</td>
+                            <td>Display first N bytes</td>
+                            <td>head -c 100 file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-q</td>
+                            <td>Suppress file headers</td>
+                            <td>head -q file1.txt file2.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-v</td>
+                            <td>Show file headers</td>
+                            <td>head -v file.txt</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Show first 100 lines and suppress headers
+head -n 100 -q file1.txt file2.txt
+
+# Display first 1KB of data
+head -c 1024 file.bin
+
+# Show first 10 lines of multiple files
+head file1.txt file2.txt
+
+# Combine head and grep
+head -n 50 log.txt | grep 'ERROR'</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Process first N lines
+process_head() {
+    head -n "$1" "$2" | while read -r line; do
+        # Process each line
+        echo "[$(date)]: $line"
+    done
+}
+
+# Preview and notify
+preview_notify() {
+    head -n 10 "$1" | while read -r line; do
+        notify-send "File Preview" "$line"
+    done
+}
+
+# Batch head processing
+batch_head() {
+    for file in "$@"; do
+        echo "=== First 10 lines of $file ==="
+        head -n 10 "$file"
+        echo
+    done
+}</code></pre>
+                </div>
+
+                <div class="performance">
+                    <h3>Performance Considerations</h3>
+                    <ul>
+                        <li><strong>Memory Usage:</strong>
+                            <ul>
+                                <li>Minimal memory usage</li>
+                                <li>Efficient for previewing files</li>
+                                <li>Handles large files gracefully</li>
+                            </ul>
+                        </li>
+                        <li><strong>CPU Usage:</strong>
+                            <ul>
+                                <li>Low CPU usage</li>
+                                <li>Quick file access</li>
+                            </ul>
+                        </li>
+                        <li><strong>File System Impact:</strong>
+                            <ul>
+                                <li>Minimal disk I/O</li>
+                                <li>Works well with network filesystems</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Common Issues:</strong>
+                            <ul>
+                                <li>Incorrect line count</li>
+                                <li>File permission problems</li>
+                            </ul>
+                        </li>
+                        <li><strong>Solutions:</strong>
+                            <ul>
+                                <li>Verify line count</li>
+                                <li>Check file permissions</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use -n to specify line count</li>
+                        <li>Combine with grep for filtering</li>
+                        <li>Suppress headers when processing multiple files</li>
+                        <li>Monitor resource usage when dealing with large files</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>less:</strong> Interactive file viewing
+                            <pre><code>less file.txt</code></pre>
+                        </li>
+                        <li><strong>multitail:</strong> Advanced log monitoring
+                            <pre><code>multitail file1.log file2.log</code></pre>
+                        </li>
+                        <li><strong>logwatch:</strong> Log analysis
+                            <pre><code>logwatch --detail high</code></pre>
+                        </li>
+                        <li><strong>glogg:</strong> GUI log viewer
+                            <pre><code>glogg large.log</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
