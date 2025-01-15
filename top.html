@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>top Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: top</h1>
+        <p>System monitoring and process management tool</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html" class="active">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>top</code> command provides a dynamic real-time view of a running system. It shows system summary information and a list of processes or threads currently being managed by the Linux kernel.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>top                    # Basic system monitoring
+top -u username        # Monitor specific user's processes
+top -p pid1,pid2       # Monitor specific processes
+top -b -n 1            # Non-interactive batch mode</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Key Options</h3>
+                    <ul>
+                        <li><code>-u [username]</code> - Display specific user's processes</li>
+                        <li><code>-p [pid]</code> - Monitor specific process IDs</li>
+                        <li><code>-n [num]</code> - Number of iterations before ending</li>
+                        <li><code>-b</code> - Batch mode (non-interactive)</li>
+                        <li><code>-H</code> - Show threads</li>
+                    </ul>
+                </div>
+
+                <div class="real-time-monitoring">
+                    <h3>Real-time Monitoring Fields</h3>
+                    <ul>
+                        <li><strong>PID</strong> - Process ID</li>
+                        <li><strong>USER</strong> - Process owner</li>
+                        <li><strong>PR</strong> - Priority</li>
+                        <li><strong>NI</strong> - Nice value</li>
+                        <li><strong>VIRT</strong> - Virtual memory size</li>
+                        <li><strong>RES</strong> - Resident memory size</li>
+                        <li><strong>SHR</strong> - Shared memory size</li>
+                        <li><strong>S</strong> - Process status</li>
+                        <li><strong>%CPU</strong> - CPU usage</li>
+                        <li><strong>%MEM</strong> - Memory usage</li>
+                        <li><strong>TIME+</strong> - Total CPU time</li>
+                        <li><strong>COMMAND</strong> - Command name/line</li>
+                    </ul>
+                </div>
+
+                <div class="interactive-commands">
+                    <h3>Interactive Commands</h3>
+                    <table class="command-table">
+                        <tr>
+                            <th>Key</th>
+                            <th>Function</th>
+                        </tr>
+                        <tr>
+                            <td><kbd>h</kbd> or <kbd>?</kbd></td>
+                            <td>Help screen</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>q</kbd></td>
+                            <td>Quit top</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>k</kbd></td>
+                            <td>Kill a process</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>r</kbd></td>
+                            <td>Renice a process</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>f</kbd></td>
+                            <td>Field management</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>o</kbd></td>
+                            <td>Change sort field</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>1</kbd></td>
+                            <td>Show CPU cores</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>M</kbd></td>
+                            <td>Sort by memory</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>P</kbd></td>
+                            <td>Sort by CPU</td>
+                        </tr>
+                        <tr>
+                            <td><kbd>W</kbd></td>
+                            <td>Save configuration</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="process-states">
+                    <h3>Process States</h3>
+                    <ul>
+                        <li><strong>D</strong> - Uninterruptible sleep</li>
+                        <li><strong>R</strong> - Running or runnable</li>
+                        <li><strong>S</strong> - Interruptible sleep</li>
+                        <li><strong>T</strong> - Stopped by job control</li>
+                        <li><strong>t</strong> - Stopped by debugger</li>
+                        <li><strong>Z</strong> - Zombie process</li>
+                    </ul>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Sort processes by memory usage
+top -o %MEM
+
+# Update every 5 seconds
+top -d 5
+
+# Show only user processes
+top -u username
+
+# Display specific processes
+top -p 1234,5678
+
+# Batch mode output
+top -b -n 1 > top_output.txt
+
+# Show absolute memory values
+top -E m
+
+# Display threads
+top -H
+
+# Show cumulative time
+top -S</code></pre>
+                </div>
+
+                <div class="configuration">
+                    <h3>Configuration Tips</h3>
+                    <ul>
+                        <li>Create custom views with <kbd>f</kbd> key</li>
+                        <li>Save configurations to ~/.toprc</li>
+                        <li>Use batch mode for scripting</li>
+                        <li>Combine with grep for specific monitoring</li>
+                        <li>Set custom update intervals</li>
+                        <li>Configure color schemes</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>High CPU Usage:</strong> Use <kbd>P</kbd> to sort by CPU</li>
+                        <li><strong>Memory Leaks:</strong> Monitor RES and VIRT columns</li>
+                        <li><strong>Zombie Processes:</strong> Look for 'Z' state</li>
+                        <li><strong>System Slowdown:</strong> Check load average</li>
+                        <li><strong>Resource Hogs:</strong> Sort by different columns</li>
+                    </ul>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Monitor specific process and log CPU usage
+while true; do
+    top -b -n 1 -p 1234 | grep "1234" >> cpu_log.txt
+    sleep 60
+done
+
+# Alert on high memory usage
+top -b -n 1 | awk 'NR>7 { if ($10 > 80.0) print $2,$10 }'
+
+# Continuous monitoring with timestamp
+while true; do
+    echo "=== $(date) ==="
+    top -b -n 1 -o %CPU | head -n 12
+    sleep 300
+done</code></pre>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

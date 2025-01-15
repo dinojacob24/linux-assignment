@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>head Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: head</h1>
+        <p>Output the beginning of files</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html" class="active">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>head</code> command displays the beginning of a text file or piped data. By default, it shows the first 10 lines, but this can be customized.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>head file              # Show first 10 lines
+head -n N file         # Show first N lines
+head -c N file         # Show first N bytes
+head -n -N file        # Show all but last N lines</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-n, --lines</code> - Output the first N lines</li>
+                        <li><code>-c, --bytes</code> - Output the first N bytes</li>
+                        <li><code>-q, --quiet</code> - Never print headers</li>
+                        <li><code>-v, --verbose</code> - Always print headers</li>
+                        <li><code>-z, --zero-terminated</code> - Line delimiter is NUL</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Show first 10 lines of a file
+head file.txt
+
+# Show first 5 lines
+head -n 5 file.txt
+
+# Show first 100 bytes
+head -c 100 file.txt
+
+# Show all but last 5 lines
+head -n -5 file.txt
+
+# Show headers for multiple files
+head -v file1.txt file2.txt
+
+# Show first 20 lines of multiple files
+head -n 20 *.txt</code></pre>
+                </div>
+
+                <div class="pipe-examples">
+                    <h3>Using with Pipes</h3>
+                    <pre><code># Show first 5 processes
+ps aux | head -n 5
+
+# Show first few directory entries
+ls -l | head
+
+# Show beginning of command output
+cat large_file.txt | head
+
+# Show first few matches
+grep "error" log.txt | head -n 3</code></pre>
+                </div>
+
+                <div class="tips">
+                    <h3>Pro Tips</h3>
+                    <ul>
+                        <li>Combine with <code>tail</code> to show specific ranges</li>
+                        <li>Use with <code>sort</code> to see top entries</li>
+                        <li>Useful for quick file inspection</li>
+                        <li>Great for log file analysis</li>
+                        <li>Can handle multiple files at once</li>
+                    </ul>
+                </div>
+
+                <div class="common-uses">
+                    <h3>Common Use Cases</h3>
+                    <ul>
+                        <li>Previewing file contents</li>
+                        <li>Checking log file beginnings</li>
+                        <li>Limiting command output</li>
+                        <li>Processing large datasets</li>
+                        <li>Quick file inspection</li>
+                    </ul>
+                </div>
+
+                <div class="related-commands">
+                    <h3>Related Commands</h3>
+                    <ul>
+                        <li><code>tail</code> - Show end of file</li>
+                        <li><code>cat</code> - Show entire file</li>
+                        <li><code>less</code> - Interactive file viewing</li>
+                        <li><code>more</code> - Page through file</li>
+                    </ul>
+                </div>
+
+                <div class="basic-usage">
+                    <h3>Basic Usage</h3>
+                    <table class="options-table">
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>-n N</td>
+                            <td>Display first N lines</td>
+                            <td>head -n 20 file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-c N</td>
+                            <td>Display first N bytes</td>
+                            <td>head -c 100 file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-q</td>
+                            <td>Quiet mode (no headers)</td>
+                            <td>head -q file1.txt file2.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-v</td>
+                            <td>Verbose (always show headers)</td>
+                            <td>head -v file.txt</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Display first 1000 bytes
+head -c 1000 file.txt
+
+# Show first 50 lines from multiple files
+head -n 50 file1.txt file2.txt
+
+# Display first 10 lines without headers
+head -q -n 10 *.txt
+
+# Show first N-1 lines (skip last line)
+head -n -1 file.txt
+
+# Pipe with other commands
+ps aux | head -n 5
+
+# Monitor file beginning
+tail -f file.txt | head -n 20
+
+# Display first megabyte
+head -c 1M large_file.dat
+
+# Show beginning of compressed file
+zcat file.gz | head -n 20</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Process first N lines of each file
+process_heads() {
+    for file in "$@"; do
+        echo "=== Processing $file ==="
+        head -n 10 "$file" | while read -r line; do
+            echo "Line: $line"
+            # Process each line here
+        done
+    done
+}
+
+# Monitor file headers
+monitor_headers() {
+    while true; do
+        clear
+        head -n 5 "$1"
+        sleep 1
+    done
+}
+
+# Extract file headers
+extract_headers() {
+    for file in "$@"; do
+        head -n 1 "$file" > "${file}.header"
+    done
+}
+
+# Compare file beginnings
+compare_heads() {
+    if diff <(head -n 10 "$1") <(head -n 10 "$2") >/dev/null; then
+        echo "First 10 lines match"
+    else
+        echo "Files differ in first 10 lines"
+    fi
+}</code></pre>
+                </div>
+
+                <div class="common-tasks">
+                    <h3>Common Tasks</h3>
+                    <pre><code># Preview large files
+head -n 100 large_file.txt
+
+# Check file headers
+head -n 1 *.csv
+
+# Quick file inspection
+head -v -n 5 /var/log/*.log
+
+# Extract sample data
+head -n 1000 data.csv > sample.csv
+
+# View file start in hex
+head -c 100 binary_file | xxd
+
+# Check multiple log files
+head -n 20 /var/log/{syslog,auth.log}
+
+# Monitor log beginning
+watch -n 1 'head -n 20 /var/log/syslog'
+
+# Extract file metadata
+head -c 512 image.jpg > header.bin</code></pre>
+                </div>
+
+                <div class="performance">
+                    <h3>Performance Considerations</h3>
+                    <ul>
+                        <li><strong>Memory Usage:</strong>
+                            <ul>
+                                <li>Uses minimal memory regardless of file size</li>
+                                <li>Efficient for large file previews</li>
+                                <li>Stops reading after required lines</li>
+                            </ul>
+                        </li>
+                        <li><strong>Processing Speed:</strong>
+                            <ul>
+                                <li>Very fast operation</li>
+                                <li>No file seeking required</li>
+                                <li>Efficient with compressed files</li>
+                            </ul>
+                        </li>
+                        <li><strong>Best Practices:</strong>
+                            <ul>
+                                <li>Use -c for binary files</li>
+                                <li>Prefer -q for multiple files</li>
+                                <li>Consider compression</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Common Issues:</strong>
+                            <ul>
+                                <li>File permission denied</li>
+                                <li>Invalid byte count</li>
+                                <li>Binary file output</li>
+                                <li>Character encoding issues</li>
+                            </ul>
+                        </li>
+                        <li><strong>Solutions:</strong>
+                            <ul>
+                                <li>Check file permissions</li>
+                                <li>Use -c for binary files</li>
+                                <li>Specify correct encoding</li>
+                                <li>Use -q for clean output</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use -n for line count</li>
+                        <li>Use -c for binary files</li>
+                        <li>Combine with grep for filtering</li>
+                        <li>Use -q for multiple files</li>
+                        <li>Consider file type</li>
+                        <li>Check file encoding</li>
+                        <li>Use with compression tools</li>
+                        <li>Monitor resource usage</li>
+                        <li>Document scripts</li>
+                        <li>Handle errors gracefully</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>less:</strong> Interactive file viewing
+                            <pre><code>less +F file.txt</code></pre>
+                        </li>
+                        <li><strong>more:</strong> Simple paging
+                            <pre><code>more file.txt</code></pre>
+                        </li>
+                        <li><strong>bat:</strong> Syntax highlighting
+                            <pre><code>bat -n 20 file.txt</code></pre>
+                        </li>
+                        <li><strong>most:</strong> Advanced paging
+                            <pre><code>most file.txt</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

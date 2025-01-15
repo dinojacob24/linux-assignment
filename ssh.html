@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ssh Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: ssh</h1>
+        <p>Secure Shell - Remote system access and management</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html" class="active">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>ssh</code> (Secure Shell) command provides a secure encrypted connection between two hosts over an insecure network. It's commonly used for remote login, command execution, and tunneling.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>ssh user@hostname           # Basic connection
+ssh -p port user@hostname   # Connect to specific port
+ssh -i key.pem user@host    # Use identity file
+ssh -X user@host           # Enable X11 forwarding</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-p port</code> - Specify port number</li>
+                        <li><code>-i identity_file</code> - Specify private key file</li>
+                        <li><code>-X</code> - Enable X11 forwarding</li>
+                        <li><code>-v</code> - Verbose mode</li>
+                        <li><code>-L port:host:hostport</code> - Port forwarding</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Basic SSH connection
+ssh user@example.com
+
+# Connect using specific port
+ssh -p 2222 user@example.com
+
+# Use identity file
+ssh -i ~/.ssh/mykey.pem user@example.com
+
+# Enable X11 forwarding
+ssh -X user@example.com
+
+# Port forwarding
+ssh -L 8080:localhost:80 user@example.com
+
+# Run command on remote host
+ssh user@example.com 'ls -la'</code></pre>
+                </div>
+
+                <div class="config-example">
+                    <h3>SSH Config File Example</h3>
+                    <pre><code># ~/.ssh/config
+Host myserver
+    HostName example.com
+    User myuser
+    Port 2222
+    IdentityFile ~/.ssh/mykey.pem
+    ForwardX11 yes</code></pre>
+                </div>
+
+                <div class="security-tips">
+                    <h3>Security Best Practices</h3>
+                    <ul>
+                        <li>Use SSH keys instead of passwords</li>
+                        <li>Keep private keys secure and never share them</li>
+                        <li>Use strong key encryption (ED25519 or RSA 4096)</li>
+                        <li>Disable root login when possible</li>
+                        <li>Use non-standard ports for public servers</li>
+                        <li>Keep SSH software updated</li>
+                    </ul>
+                </div>
+
+                <div class="authentication-methods">
+                    <h3>Authentication Methods</h3>
+                    <table class="auth-table">
+                        <tr>
+                            <th>Method</th>
+                            <th>Description</th>
+                            <th>Security Level</th>
+                        </tr>
+                        <tr>
+                            <td>Public Key</td>
+                            <td>Uses key pairs for authentication</td>
+                            <td>High</td>
+                        </tr>
+                        <tr>
+                            <td>Password</td>
+                            <td>Traditional password authentication</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Host-based</td>
+                            <td>Based on trusted hosts</td>
+                            <td>Low</td>
+                        </tr>
+                        <tr>
+                            <td>Keyboard Interactive</td>
+                            <td>Multi-factor authentication</td>
+                            <td>High</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="key-management">
+                    <h3>Key Management</h3>
+                    <pre><code># Generate SSH key pair
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Generate RSA key with higher bits
+ssh-keygen -t rsa -b 4096
+
+# Add key to ssh-agent
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+
+# Copy public key to server
+ssh-copy-id user@remote-host
+
+# List fingerprints of keys
+ssh-keygen -l -f ~/.ssh/id_ed25519.pub
+
+# Convert key format
+ssh-keygen -p -m PEM -f ~/.ssh/id_rsa</code></pre>
+                </div>
+
+                <div class="advanced-config">
+                    <h3>Advanced Configuration</h3>
+                    <pre><code># SSH config file (~/.ssh/config)
+Host myserver
+    HostName example.com
+    User admin
+    Port 2222
+    IdentityFile ~/.ssh/special_key
+    ForwardX11 yes
+    
+Host *
+    ServerAliveInterval 60
+    Compression yes
+    AddKeysToAgent yes</code></pre>
+                </div>
+
+                <div class="tunneling">
+                    <h3>Port Forwarding and Tunneling</h3>
+                    <pre><code># Local port forwarding
+ssh -L 8080:localhost:80 user@remote-host
+
+# Remote port forwarding
+ssh -R 8080:localhost:80 user@remote-host
+
+# Dynamic port forwarding (SOCKS proxy)
+ssh -D 1080 user@remote-host
+
+# Jump host configuration
+ssh -J jump-host user@target-host
+
+# Multiple port forwards
+ssh -L 8080:localhost:80 -L 3306:localhost:3306 user@host</code></pre>
+                </div>
+
+                <div class="security-hardening">
+                    <h3>Security Hardening</h3>
+                    <pre><code># /etc/ssh/sshd_config
+PermitRootLogin no
+PasswordAuthentication no
+PubkeyAuthentication yes
+MaxAuthTries 3
+Protocol 2
+X11Forwarding no
+AllowUsers user1 user2
+Port 2222
+
+# Verify SSH configuration
+sshd -t
+
+# Check SSH daemon status
+systemctl status sshd</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Connection Issues:</strong>
+                            <ul>
+                                <li>Check network connectivity</li>
+                                <li>Verify SSH service is running</li>
+                                <li>Check firewall rules</li>
+                                <li>Verify DNS resolution</li>
+                            </ul>
+                        </li>
+                        <li><strong>Authentication Failures:</strong>
+                            <ul>
+                                <li>Check key permissions (600)</li>
+                                <li>Verify authorized_keys entries</li>
+                                <li>Check user permissions</li>
+                                <li>Review authentication logs</li>
+                            </ul>
+                        </li>
+                        <li><strong>Performance Issues:</strong>
+                            <ul>
+                                <li>Enable compression</li>
+                                <li>Check bandwidth limitations</li>
+                                <li>Monitor system resources</li>
+                                <li>Optimize cipher selection</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Execute remote command
+ssh_exec() {
+    host=$1
+    shift
+    ssh -q $host "$@"
+}
+
+# Batch file transfer
+batch_scp() {
+    for file in "$@"; do
+        scp "$file" user@host:~/backup/
+    done
+}
+
+# Monitor SSH connections
+watch_ssh() {
+    watch 'netstat -tnp | grep :22'
+}
+
+# Multi-host command execution
+for host in $(cat hosts.txt); do
+    ssh $host 'uptime; df -h'
+done</code></pre>
+                </div>
+
+                <div class="performance-tuning">
+                    <h3>Performance Tuning</h3>
+                    <pre><code># Fast file transfer configuration
+Host fasthost
+    Compression yes
+    CompressionLevel 6
+    Ciphers aes128-gcm@openssh.com
+    MACs umac-128-etm@openssh.com
+
+# Multiplexing for faster connections
+Host *
+    ControlMaster auto
+    ControlPath ~/.ssh/control:%h:%p:%r
+    ControlPersist 10m
+
+# Optimize for high latency
+Host slownet
+    TCPKeepAlive yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 10</code></pre>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use key-based authentication</li>
+                        <li>Regularly rotate keys</li>
+                        <li>Implement fail2ban</li>
+                        <li>Keep software updated</li>
+                        <li>Use strong ciphers</li>
+                        <li>Enable two-factor authentication</li>
+                        <li>Monitor access logs</li>
+                        <li>Restrict user permissions</li>
+                        <li>Use jump hosts for sensitive systems</li>
+                        <li>Implement host key verification</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

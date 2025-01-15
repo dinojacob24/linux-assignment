@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scp Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: scp</h1>
+        <p>Secure Copy - Transfer files securely between systems</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html" class="active">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>scp</code> (Secure Copy) command securely copies files between hosts on a network using SSH for data transfer. It provides encryption and authentication.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>scp source target           # Basic copy
+scp file user@host:path     # Copy to remote
+scp user@host:file local    # Copy from remote
+scp -r directory host:path  # Copy directory</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-r</code> - Recursively copy directories</li>
+                        <li><code>-P port</code> - Specify port number</li>
+                        <li><code>-i key</code> - Identity file (private key)</li>
+                        <li><code>-C</code> - Enable compression</li>
+                        <li><code>-p</code> - Preserve file attributes</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Copy file to remote server
+scp file.txt user@example.com:/path/to/destination
+
+# Copy from remote to local
+scp user@example.com:/path/to/file.txt local.txt
+
+# Copy entire directory
+scp -r directory/ user@example.com:/path/
+
+# Copy with specific port
+scp -P 2222 file.txt user@example.com:~
+
+# Copy with compression
+scp -C large_file.zip user@example.com:~
+
+# Copy multiple files
+scp file1.txt file2.txt user@example.com:~/files/</code></pre>
+                </div>
+
+                <div class="transfer-options">
+                    <h3>Transfer Options</h3>
+                    <table class="options-table">
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>-r</td>
+                            <td>Recursive copy</td>
+                            <td>scp -r dir/ host:path/</td>
+                        </tr>
+                        <tr>
+                            <td>-p</td>
+                            <td>Preserve modification times</td>
+                            <td>scp -p file.txt host:file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-C</td>
+                            <td>Enable compression</td>
+                            <td>scp -C large.zip host:</td>
+                        </tr>
+                        <tr>
+                            <td>-l limit</td>
+                            <td>Limit bandwidth (Kbit/s)</td>
+                            <td>scp -l 1000 file.txt host:</td>
+                        </tr>
+                        <tr>
+                            <td>-P port</td>
+                            <td>Specify port number</td>
+                            <td>scp -P 2222 file.txt host:</td>
+                        </tr>
+                        <tr>
+                            <td>-i identity_file</td>
+                            <td>Identity file for auth</td>
+                            <td>scp -i key.pem file.txt host:</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Copy with specific key and port
+scp -i ~/.ssh/custom_key -P 2222 file.txt user@host:~/
+
+# Copy with bandwidth limit
+scp -l 1000 large_file.zip user@host:~/
+
+# Preserve file attributes
+scp -p important.txt user@host:~/
+
+# Copy between remote hosts
+scp user1@host1:/file user2@host2:/path/
+
+# Copy multiple files
+scp file1.txt file2.txt user@host:~/
+
+# Copy excluding files
+rsync --exclude='*.tmp' -e ssh src/ user@host:dest/</code></pre>
+                </div>
+
+                <div class="performance-tuning">
+                    <h3>Performance Optimization</h3>
+                    <pre><code># Fast transfer configuration
+scp -o 'Compression=yes' \
+    -o 'CompressionLevel=9' \
+    -o 'Ciphers=aes128-gcm@openssh.com' \
+    large_file.txt host:
+
+# Parallel transfer script
+parallel_scp() {
+    for file in "$@"; do
+        scp "$file" user@host:~/uploads/ &
+    done
+    wait
+}
+
+# Resume interrupted transfer
+rsync -P --rsh=ssh file.txt user@host:~/
+
+# Monitor transfer speed
+pv file.txt | ssh user@host 'cat > file.txt'</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Backup script with timestamp
+backup_to_remote() {
+    local date=$(date +%Y%m%d)
+    tar czf - "$1" | \
+    ssh user@host "cat > backup_${date}.tar.gz"
+}
+
+# Sync directories
+sync_dirs() {
+    local src="$1"
+    local dest="$2"
+    rsync -avz -e ssh "$src" "user@host:$dest"
+}
+
+# Multi-host transfer
+for host in $(cat hosts.txt); do
+    scp -o BatchMode=yes \
+        file.txt "$host:~/data/"
+done</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Connection Issues:</strong>
+                            <ul>
+                                <li>Check SSH connectivity</li>
+                                <li>Verify port accessibility</li>
+                                <li>Check firewall rules</li>
+                                <li>Test with verbose mode (-v)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Permission Problems:</strong>
+                            <ul>
+                                <li>Check file permissions</li>
+                                <li>Verify directory permissions</li>
+                                <li>Confirm user ownership</li>
+                                <li>Check SSH key permissions</li>
+                            </ul>
+                        </li>
+                        <li><strong>Performance Issues:</strong>
+                            <ul>
+                                <li>Enable compression</li>
+                                <li>Use faster ciphers</li>
+                                <li>Check network bandwidth</li>
+                                <li>Monitor system resources</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use key-based authentication</li>
+                        <li>Compress large transfers</li>
+                        <li>Verify file integrity</li>
+                        <li>Monitor transfer progress</li>
+                        <li>Use bandwidth limits when needed</li>
+                        <li>Implement error handling</li>
+                        <li>Keep logs of transfers</li>
+                        <li>Use rsync for large directories</li>
+                        <li>Regular backup automation</li>
+                        <li>Secure key management</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>rsync:</strong> Better for synchronization
+                            <pre><code>rsync -avz -e ssh source/ user@host:dest/</code></pre>
+                        </li>
+                        <li><strong>sftp:</strong> Interactive file transfer
+                            <pre><code>sftp user@host</code></pre>
+                        </li>
+                        <li><strong>rclone:</strong> Cloud storage support
+                            <pre><code>rclone copy source:path dest:path</code></pre>
+                        </li>
+                        <li><strong>git:</strong> Version-controlled transfers
+                            <pre><code>git clone ssh://user@host/path/repo.git</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

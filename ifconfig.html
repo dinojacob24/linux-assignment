@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ifconfig Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: ifconfig</h1>
+        <p>Configure and display network interface information</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html" class="active">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>ifconfig</code> command is used to configure network interfaces and display their current configuration. While it's being deprecated in favor of the <code>ip</code> command, it's still widely used and available on most systems.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>ifconfig                    # Display all interfaces
+ifconfig interface          # Display specific interface
+ifconfig interface up/down  # Enable/disable interface
+ifconfig interface options  # Configure interface</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>up/down</code> - Enable or disable interface</li>
+                        <li><code>netmask</code> - Set network mask</li>
+                        <li><code>broadcast</code> - Set broadcast address</li>
+                        <li><code>mtu</code> - Set Maximum Transmission Unit</li>
+                        <li><code>-a</code> - Show all interfaces, even if down</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Show all network interfaces
+ifconfig
+
+# Configure IP address and netmask
+ifconfig eth0 192.168.1.100 netmask 255.255.255.0
+
+# Enable interface
+ifconfig eth0 up
+
+# Disable interface
+ifconfig eth0 down
+
+# Set MTU size
+ifconfig eth0 mtu 1500
+
+# Show only active interfaces
+ifconfig -a</code></pre>
+                </div>
+
+                <div class="interface-details">
+                    <h3>Network Interface Fields</h3>
+                    <table class="interface-table">
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>MTU</td>
+                            <td>Maximum Transmission Unit size</td>
+                        </tr>
+                        <tr>
+                            <td>inet</td>
+                            <td>IPv4 address</td>
+                        </tr>
+                        <tr>
+                            <td>inet6</td>
+                            <td>IPv6 address</td>
+                        </tr>
+                        <tr>
+                            <td>netmask</td>
+                            <td>Network mask</td>
+                        </tr>
+                        <tr>
+                            <td>broadcast</td>
+                            <td>Broadcast address</td>
+                        </tr>
+                        <tr>
+                            <td>ether</td>
+                            <td>MAC address</td>
+                        </tr>
+                        <tr>
+                            <td>RX/TX packets</td>
+                            <td>Received/Transmitted packets</td>
+                        </tr>
+                        <tr>
+                            <td>collisions</td>
+                            <td>Number of collisions detected</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="interface-flags">
+                    <h3>Interface Flags</h3>
+                    <ul>
+                        <li><strong>UP</strong> - Interface is active</li>
+                        <li><strong>BROADCAST</strong> - Supports broadcasting</li>
+                        <li><strong>RUNNING</strong> - Interface ready to accept data</li>
+                        <li><strong>MULTICAST</strong> - Supports multicasting</li>
+                        <li><strong>LOOPBACK</strong> - Loopback interface</li>
+                        <li><strong>POINTOPOINT</strong> - Point-to-point link</li>
+                        <li><strong>PROMISC</strong> - Promiscuous mode</li>
+                        <li><strong>NOARP</strong> - No ARP protocol</li>
+                    </ul>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Set interface MTU
+ifconfig eth0 mtu 9000
+
+# Enable promiscuous mode
+ifconfig eth0 promisc
+
+# Disable promiscuous mode
+ifconfig eth0 -promisc
+
+# Set interface metric
+ifconfig eth0 metric 100
+
+# Set transmit queue length
+ifconfig eth0 txqueuelen 2000
+
+# Enable multicast
+ifconfig eth0 multicast
+
+# Set hardware class
+ifconfig eth0 hw ether 00:11:22:33:44:55</code></pre>
+                </div>
+
+                <div class="network-configuration">
+                    <h3>Network Configuration Examples</h3>
+                    <pre><code># Configure IPv4 with netmask and broadcast
+ifconfig eth0 192.168.1.10 netmask 255.255.255.0 broadcast 192.168.1.255
+
+# Add secondary IP address
+ifconfig eth0:1 192.168.2.10 up
+
+# Configure IPv6 address
+ifconfig eth0 inet6 add 2001:db8::1/64
+
+# Remove IPv6 address
+ifconfig eth0 inet6 del 2001:db8::1/64
+
+# Set interface up with specific parameters
+ifconfig eth0 up mtu 1500 txqueuelen 1000</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>No carrier:</strong>
+                            <ul>
+                                <li>Check physical connection</li>
+                                <li>Verify cable integrity</li>
+                                <li>Check switch/router port</li>
+                            </ul>
+                        </li>
+                        <li><strong>TX errors:</strong>
+                            <ul>
+                                <li>Check for collisions</li>
+                                <li>Verify duplex settings</li>
+                                <li>Monitor network congestion</li>
+                            </ul>
+                        </li>
+                        <li><strong>RX errors:</strong>
+                            <ul>
+                                <li>Check for packet corruption</li>
+                                <li>Verify buffer sizes</li>
+                                <li>Monitor for overruns</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="performance-tuning">
+                    <h3>Performance Tuning</h3>
+                    <pre><code># Optimize for jumbo frames
+ifconfig eth0 mtu 9000
+
+# Adjust ring buffer
+ethtool -G eth0 rx 4096 tx 4096
+
+# Set interface speed and duplex
+ethtool -s eth0 speed 1000 duplex full
+
+# Monitor interface statistics
+watch -n 1 "ifconfig eth0 | grep bytes"</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Monitor interface bandwidth
+while true; do
+    RX_BYTES=$(ifconfig eth0 | grep "RX bytes" | awk '{print $2}' | cut -d: -f2)
+    sleep 1
+    RX_BYTES_NEW=$(ifconfig eth0 | grep "RX bytes" | awk '{print $2}' | cut -d: -f2)
+    echo "Bandwidth: $(((RX_BYTES_NEW-RX_BYTES)/1024)) KB/s"
+done
+
+# Check interface status
+check_interface() {
+    if ifconfig $1 | grep -q "UP"; then
+        echo "Interface $1 is up"
+    else
+        echo "Interface $1 is down"
+    fi
+}
+
+# Reset interface
+reset_interface() {
+    ifconfig $1 down
+    sleep 2
+    ifconfig $1 up
+}</code></pre>
+                </div>
+
+                <div class="modern-alternatives">
+                    <h3>Modern Alternatives (ip command)</h3>
+                    <pre><code># Show interfaces
+ip link show
+
+# Set interface up/down
+ip link set eth0 up/down
+
+# Set IP address
+ip addr add 192.168.1.10/24 dev eth0
+
+# Show interface statistics
+ip -s link show eth0
+
+# Add route
+ip route add default via 192.168.1.1
+
+# Show neighbors
+ip neigh show</code></pre>
+                </div>
+
+                <div class="modern-alternative">
+                    <h3>Modern Alternative: ip Command</h3>
+                    <pre><code># Show interfaces (ip equivalent)
+ip addr show
+
+# Configure IP (ip equivalent)
+ip addr add 192.168.1.100/24 dev eth0
+
+# Enable/disable (ip equivalent)
+ip link set eth0 up/down
+
+# Show statistics (ip equivalent)
+ip -s link show eth0</code></pre>
+                </div>
+
+                <div class="tips">
+                    <h3>Pro Tips</h3>
+                    <ul>
+                        <li>Use <code>ip</code> command for modern systems</li>
+                        <li>Check interface status before configuration</li>
+                        <li>Backup current configuration before changes</li>
+                        <li>Use <code>ifconfig -a</code> to see all interfaces</li>
+                        <li>Remember to configure DNS separately</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Important Notes</h3>
+                    <ul>
+                        <li>Changes made with ifconfig are temporary</li>
+                        <li>For permanent changes, edit network configuration files</li>
+                        <li>Some systems may require root privileges</li>
+                        <li>The command is deprecated on modern systems</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

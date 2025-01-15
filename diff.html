@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>diff Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: diff</h1>
+        <p>Compare files line by line and show differences</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html" class="active">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>diff</code> command compares files line by line and displays the differences between them. It's commonly used for comparing text files, creating patches, and reviewing changes.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>diff file1 file2           # Basic comparison
+diff -u file1 file2        # Unified format
+diff -y file1 file2        # Side by side
+diff -r dir1 dir2         # Compare directories</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-u</code> - Unified format (most readable)</li>
+                        <li><code>-y</code> - Side by side comparison</li>
+                        <li><code>-r</code> - Recursive directory comparison</li>
+                        <li><code>-i</code> - Ignore case differences</li>
+                        <li><code>-w</code> - Ignore whitespace</li>
+                        <li><code>-B</code> - Ignore blank lines</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Compare two files
+diff file1.txt file2.txt
+
+# Unified format (context)
+diff -u file1.txt file2.txt
+
+# Side by side comparison
+diff -y file1.txt file2.txt
+
+# Compare directories
+diff -r dir1/ dir2/
+
+# Create a patch file
+diff -u original.txt modified.txt > changes.patch
+
+# Ignore whitespace
+diff -w file1.txt file2.txt</code></pre>
+                </div>
+
+                <div class="output-explanation">
+                    <h3>Understanding Output</h3>
+                    <pre><code># Normal format
+< line from file1
+> line from file2
+
+# Unified format (-u)
+--- file1
++++ file2
+@@ -1,3 +1,3 @@
+ unchanged line
+-removed line
++added line
+ unchanged line</code></pre>
+                    <ul>
+                        <li><code>---</code> indicates the original file</li>
+                        <li><code>+++</code> indicates the modified file</li>
+                        <li><code>-</code> lines were removed</li>
+                        <li><code>+</code> lines were added</li>
+                        <li><code>@@</code> shows line numbers</li>
+                    </ul>
+                </div>
+
+                <div class="diff-formats">
+                    <h3>Output Formats</h3>
+                    <table class="format-table">
+                        <tr>
+                            <th>Format</th>
+                            <th>Option</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>Normal</td>
+                            <td>(default)</td>
+                            <td>Shows lines with < and > prefixes</td>
+                        </tr>
+                        <tr>
+                            <td>Unified</td>
+                            <td>-u</td>
+                            <td>Shows differences in unified format</td>
+                        </tr>
+                        <tr>
+                            <td>Context</td>
+                            <td>-c</td>
+                            <td>Shows differences with context</td>
+                        </tr>
+                        <tr>
+                            <td>Side by side</td>
+                            <td>-y</td>
+                            <td>Shows differences in two columns</td>
+                        </tr>
+                        <tr>
+                            <td>Brief</td>
+                            <td>-q</td>
+                            <td>Reports only if files differ</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Compare with context
+diff -c file1.txt file2.txt
+
+# Show unified format with more context
+diff -U 5 file1.txt file2.txt
+
+# Side by side with suppressed common lines
+diff -y --suppress-common-lines file1.txt file2.txt
+
+# Ignore whitespace changes
+diff -w file1.txt file2.txt
+
+# Ignore case differences
+diff -i file1.txt file2.txt
+
+# Ignore blank lines
+diff -B file1.txt file2.txt
+
+# Compare directories recursively
+diff -r dir1/ dir2/
+
+# Show only different files
+diff -rq dir1/ dir2/</code></pre>
+                </div>
+
+                <div class="patch-creation">
+                    <h3>Creating and Applying Patches</h3>
+                    <pre><code># Create a patch file
+diff -u original.txt modified.txt > changes.patch
+
+# Create a patch for multiple files
+diff -Naur original/ modified/ > changes.patch
+
+# Apply a patch
+patch < changes.patch
+
+# Apply patch with backup
+patch -b < changes.patch
+
+# Dry run (test patch)
+patch --dry-run < changes.patch
+
+# Apply patch in reverse
+patch -R < changes.patch
+
+# Apply patch with fuzz factor
+patch -F 3 < changes.patch</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Compare multiple files
+compare_files() {
+    for file in "$@"; do
+        if diff "$file" "${file}.new" >/dev/null; then
+            echo "$file unchanged"
+        else
+            echo "$file changed"
+        fi
+    done
+}
+
+# Monitor file changes
+watch_file() {
+    while true; do
+        if diff "$1" "$1.old" >/dev/null; then
+            sleep 1
+        else
+            echo "File changed: $(date)"
+            cp "$1" "$1.old"
+        fi
+    done
+}
+
+# Batch directory comparison
+diff_dirs() {
+    diff -rq "$1" "$2" | while read -r line; do
+        case "$line" in
+            "Only in $1"*) echo "Removed: $line" ;;
+            "Only in $2"*) echo "Added: $line" ;;
+            "Files "*" differ") echo "Modified: $line" ;;
+        esac
+    done
+}</code></pre>
+                </div>
+
+                <div class="version-control">
+                    <h3>Version Control Integration</h3>
+                    <pre><code># Create Git-compatible patch
+git diff > changes.patch
+
+# Apply Git patch
+git apply changes.patch
+
+# Create numbered backup files
+diff -Naur --new-file -r orig/ new/ > changes.patch
+
+# Show changes in color
+diff --color=always file1 file2
+
+# Generate HTML report
+diff -u file1 file2 | diff2html > report.html</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Patch Failed:</strong>
+                            <ul>
+                                <li>Check file permissions</li>
+                                <li>Verify file encodings</li>
+                                <li>Check line endings (DOS/Unix)</li>
+                                <li>Try with fuzz factor</li>
+                            </ul>
+                        </li>
+                        <li><strong>Unexpected Output:</strong>
+                            <ul>
+                                <li>Check file formats</li>
+                                <li>Verify character encodings</li>
+                                <li>Check for binary files</li>
+                                <li>Consider whitespace issues</li>
+                            </ul>
+                        </li>
+                        <li><strong>Performance Issues:</strong>
+                            <ul>
+                                <li>Use -q for large directories</li>
+                                <li>Filter unnecessary files</li>
+                                <li>Consider using rsync</li>
+                                <li>Use parallel processing</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use unified format for patches</li>
+                        <li>Include context in patches</li>
+                        <li>Document patch changes</li>
+                        <li>Test patches before applying</li>
+                        <li>Keep backup copies</li>
+                        <li>Use version control when possible</li>
+                        <li>Consider file encodings</li>
+                        <li>Handle binary files separately</li>
+                        <li>Maintain patch documentation</li>
+                        <li>Use appropriate diff tools</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>git diff:</strong> Version control differences
+                            <pre><code>git diff file1 file2</code></pre>
+                        </li>
+                        <li><strong>meld:</strong> Visual diff and merge
+                            <pre><code>meld file1 file2</code></pre>
+                        </li>
+                        <li><strong>kdiff3:</strong> Three-way comparison
+                            <pre><code>kdiff3 file1 file2 file3</code></pre>
+                        </li>
+                        <li><strong>vimdiff:</strong> Vim-based diffing
+                            <pre><code>vimdiff file1 file2</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>curl Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: curl</h1>
+        <p>Transfer data from or to a server using various protocols</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html" class="active">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>curl</code> command is a versatile tool for transferring data with URLs. It supports numerous protocols including HTTP, HTTPS, FTP, FTPS, SCP, SFTP, TFTP, DICT, TELNET, LDAP, and FILE.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>curl [options] URL         # Basic usage
+curl -o file URL          # Save output to file
+curl -O URL              # Save with remote filename
+curl -X METHOD URL       # Specify HTTP method</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-o, --output</code> - Write to file</li>
+                        <li><code>-O, --remote-name</code> - Save using remote filename</li>
+                        <li><code>-I, --head</code> - Show document info only</li>
+                        <li><code>-L, --location</code> - Follow redirects</li>
+                        <li><code>-X, --request</code> - Specify request method</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Download a file
+curl -O https://example.com/file.zip
+
+# Send GET request
+curl https://api.example.com/data
+
+# Send POST request with data
+curl -X POST -d "name=john" https://api.example.com/users
+
+# Send JSON data
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"name":"john"}' https://api.example.com/users
+
+# Download with progress bar
+curl -# -O https://example.com/file.zip
+
+# Follow redirects
+curl -L https://example.com</code></pre>
+                </div>
+
+                <div class="http-methods">
+                    <h3>HTTP Methods</h3>
+                    <pre><code># GET request
+curl https://api.example.com/users
+
+# POST request
+curl -X POST -d "data" https://api.example.com
+
+# PUT request
+curl -X PUT -d "data" https://api.example.com
+
+# DELETE request
+curl -X DELETE https://api.example.com/users/1</code></pre>
+                </div>
+
+                <div class="headers-auth">
+                    <h3>Headers and Authentication</h3>
+                    <pre><code># Add headers
+curl -H "Authorization: Bearer token" https://api.example.com
+
+# Basic authentication
+curl -u username:password https://api.example.com
+
+# Cookie usage
+curl -b "session=123" https://example.com
+
+# Save cookies
+curl -c cookies.txt https://example.com</code></pre>
+                </div>
+
+                <div class="tips">
+                    <h3>Pro Tips</h3>
+                    <ul>
+                        <li>Use <code>-v</code> for verbose output</li>
+                        <li>Use <code>-#</code> for progress bar</li>
+                        <li>Save commands in scripts for reuse</li>
+                        <li>Use <code>--compressed</code> for compressed transfer</li>
+                        <li>Test APIs with <code>-i</code> for headers</li>
+                    </ul>
+                </div>
+
+                <div class="request-methods">
+                    <h3>HTTP Request Methods</h3>
+                    <table class="methods-table">
+                        <tr>
+                            <th>Method</th>
+                            <th>Option</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>GET</td>
+                            <td>-X GET</td>
+                            <td>curl -X GET https://api.example.com/users</td>
+                        </tr>
+                        <tr>
+                            <td>POST</td>
+                            <td>-X POST</td>
+                            <td>curl -X POST -d "data" https://api.example.com</td>
+                        </tr>
+                        <tr>
+                            <td>PUT</td>
+                            <td>-X PUT</td>
+                            <td>curl -X PUT -d "data" https://api.example.com</td>
+                        </tr>
+                        <tr>
+                            <td>DELETE</td>
+                            <td>-X DELETE</td>
+                            <td>curl -X DELETE https://api.example.com/1</td>
+                        </tr>
+                        <tr>
+                            <td>PATCH</td>
+                            <td>-X PATCH</td>
+                            <td>curl -X PATCH -d "data" https://api.example.com</td>
+                        </tr>
+                        <tr>
+                            <td>HEAD</td>
+                            <td>-I</td>
+                            <td>curl -I https://example.com</td>
+                        </tr>
+                        <tr>
+                            <td>OPTIONS</td>
+                            <td>-X OPTIONS</td>
+                            <td>curl -X OPTIONS https://api.example.com</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="authentication">
+                    <h3>Authentication Methods</h3>
+                    <pre><code># Basic authentication
+curl -u username:password https://api.example.com
+
+# Bearer token
+curl -H "Authorization: Bearer token123" https://api.example.com
+
+# API key in header
+curl -H "X-API-Key: your_key" https://api.example.com
+
+# OAuth2 token
+curl -H "Authorization: OAuth2 token123" https://api.example.com
+
+# Custom auth header
+curl -H "Custom-Auth: value" https://api.example.com
+
+# Netrc file
+curl --netrc-file ~/.netrc https://api.example.com</code></pre>
+                </div>
+
+                <div class="data-handling">
+                    <h3>Data Handling</h3>
+                    <pre><code># Send JSON data
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -d '{"name":"john","age":30}' \
+     https://api.example.com/users
+
+# Send form data
+curl -X POST \
+     -F "name=john" \
+     -F "photo=@image.jpg" \
+     https://api.example.com/upload
+
+# Send raw data from file
+curl -X POST \
+     -H "Content-Type: application/json" \
+     -d @data.json \
+     https://api.example.com/data
+
+# URL-encoded data
+curl -X POST \
+     --data-urlencode "name=John Doe" \
+     --data-urlencode "title=Software Engineer" \
+     https://api.example.com/form</code></pre>
+                </div>
+
+                <div class="advanced-options">
+                    <h3>Advanced Options</h3>
+                    <pre><code># Follow redirects
+curl -L https://example.com
+
+# Set timeout
+curl --connect-timeout 10 --max-time 20 https://api.example.com
+
+# Use proxy
+curl -x proxy.example.com:8080 https://api.example.com
+
+# Ignore SSL
+curl -k https://example.com
+
+# Save cookies
+curl -c cookies.txt https://example.com
+
+# Use cookies
+curl -b cookies.txt https://example.com
+
+# Show request headers
+curl -v https://example.com
+
+# Custom DNS resolver
+curl --resolve example.com:443:1.2.3.4 https://example.com</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Check HTTP status code
+check_status() {
+    status=$(curl -s -o /dev/null -w "%{http_code}" "$1")
+    if [ $status -eq 200 ]; then
+        echo "OK: $1"
+    else
+        echo "Error $status: $1"
+    fi
+}
+
+# Monitor API endpoint
+monitor_endpoint() {
+    while true; do
+        response=$(curl -s -w "\n%{time_total}" "$1")
+        echo "$(date): $response"
+        sleep 60
+    done
+}
+
+# Batch API requests
+batch_request() {
+    for id in "$@"; do
+        curl -s "https://api.example.com/users/$id" &
+    done
+    wait
+}</code></pre>
+                </div>
+
+                <div class="debugging">
+                    <h3>Debugging Tools</h3>
+                    <pre><code># Verbose output
+curl -v https://example.com
+
+# Trace output
+curl --trace output.txt https://example.com
+
+# Format headers
+curl -v https://example.com 2>&1 | grep "^>"
+
+# Show timing
+curl -w "\nTime: %{time_total}s\n" https://example.com
+
+# Full timing details
+curl -w @- https://example.com <<'EOF'
+    time_namelookup:  %{time_namelookup}s\n
+    time_connect:  %{time_connect}s\n
+    time_appconnect:  %{time_appconnect}s\n
+    time_pretransfer:  %{time_pretransfer}s\n
+    time_redirect:  %{time_redirect}s\n
+    time_starttransfer:  %{time_starttransfer}s\n
+    time_total:  %{time_total}s\n
+EOF</code></pre>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use appropriate timeouts</li>
+                        <li>Handle redirects carefully</li>
+                        <li>Validate SSL certificates</li>
+                        <li>Implement error handling</li>
+                        <li>Use compression when possible</li>
+                        <li>Monitor response times</li>
+                        <li>Log important requests</li>
+                        <li>Secure sensitive data</li>
+                        <li>Rate limit requests</li>
+                        <li>Use appropriate content types</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>HTTPie:</strong> More user-friendly syntax
+                            <pre><code>http POST api.example.com/users name=John</code></pre>
+                        </li>
+                        <li><strong>Postman:</strong> GUI-based API testing
+                            <pre><code># Export curl from Postman</code></pre>
+                        </li>
+                        <li><strong>wget:</strong> For file downloads
+                            <pre><code>wget https://example.com/file.zip</code></pre>
+                        </li>
+                        <li><strong>Axios:</strong> JavaScript HTTP client
+                            <pre><code>axios.get('https://api.example.com')</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

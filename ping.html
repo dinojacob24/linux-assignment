@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ping Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: ping</h1>
+        <p>Test network connectivity and measure response time</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html" class="active">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>ping</code> command sends ICMP ECHO_REQUEST packets to network hosts. It's used to test network connectivity, measure response times, and diagnose network issues.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>ping host               # Continuous ping
+ping -c count host      # Ping specific number of times
+ping -i interval host   # Set interval between pings
+ping -s size host      # Set packet size</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-c count</code> - Stop after sending count packets</li>
+                        <li><code>-i interval</code> - Wait interval seconds between pings</li>
+                        <li><code>-s size</code> - Specify the packet size</li>
+                        <li><code>-q</code> - Quiet output, only show summary</li>
+                        <li><code>-w deadline</code> - Stop after deadline seconds</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Ping Google's DNS server 4 times
+ping -c 4 8.8.8.8
+
+# Ping with 2-second intervals
+ping -i 2 example.com
+
+# Ping with larger packet size
+ping -s 1000 192.168.1.1
+
+# Ping with deadline
+ping -w 10 example.com
+
+# Quiet ping with summary
+ping -q -c 5 example.com</code></pre>
+                </div>
+
+                <div class="output-explanation">
+                    <h3>Understanding Output</h3>
+                    <pre><code>PING example.com (93.184.216.34) 56(84) bytes of data.
+64 bytes from 93.184.216.34: icmp_seq=1 ttl=56 time=11.6 ms
+64 bytes from 93.184.216.34: icmp_seq=2 ttl=56 time=12.1 ms
+
+--- example.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 11.629/11.866/12.104/0.237 ms</code></pre>
+                    <ul>
+                        <li><code>icmp_seq</code> - Sequence number of the packet</li>
+                        <li><code>ttl</code> - Time To Live value</li>
+                        <li><code>time</code> - Round-trip time in milliseconds</li>
+                        <li><code>packet loss</code> - Percentage of packets lost</li>
+                        <li><code>rtt</code> - Round-trip time statistics</li>
+                    </ul>
+                </div>
+
+                <div class="packet-details">
+                    <h3>ICMP Packet Fields</h3>
+                    <table class="packet-table">
+                        <tr>
+                            <th>Field</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>bytes</td>
+                            <td>Size of ICMP packet</td>
+                        </tr>
+                        <tr>
+                            <td>ttl</td>
+                            <td>Time To Live value</td>
+                        </tr>
+                        <tr>
+                            <td>time</td>
+                            <td>Round-trip time in ms</td>
+                        </tr>
+                        <tr>
+                            <td>seq</td>
+                            <td>Sequence number</td>
+                        </tr>
+                        <tr>
+                            <td>icmp_seq</td>
+                            <td>ICMP sequence number</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Specify packet size
+ping -s 1500 example.com
+
+# Set TTL value
+ping -t 64 example.com
+
+# Set timeout
+ping -W 2 example.com
+
+# Flood ping (requires root)
+ping -f example.com
+
+# Custom interval
+ping -i 0.2 example.com
+
+# Specify interface
+ping -I eth0 example.com
+
+# Record route
+ping -R example.com
+
+# Timestamp request
+ping -T tsonly example.com</code></pre>
+                </div>
+
+                <div class="network-diagnostics">
+                    <h3>Network Diagnostics</h3>
+                    <pre><code># Check network connectivity
+ping -c 4 8.8.8.8
+
+# Measure packet loss
+ping -c 100 -i 0.2 server.com | grep "packet loss"
+
+# Monitor latency
+ping -D example.com
+
+# Check MTU issues
+ping -M do -s 1472 example.com
+
+# Audible ping
+ping -a example.com
+
+# Quiet output
+ping -q -c 5 example.com</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Request timeout:</strong>
+                            <ul>
+                                <li>Check network connectivity</li>
+                                <li>Verify DNS resolution</li>
+                                <li>Check firewall rules</li>
+                                <li>Verify routing table</li>
+                            </ul>
+                        </li>
+                        <li><strong>High latency:</strong>
+                            <ul>
+                                <li>Check network congestion</li>
+                                <li>Verify routing path</li>
+                                <li>Monitor bandwidth usage</li>
+                                <li>Check for packet loss</li>
+                            </ul>
+                        </li>
+                        <li><strong>Packet loss:</strong>
+                            <ul>
+                                <li>Check physical connections</li>
+                                <li>Monitor network errors</li>
+                                <li>Verify QoS settings</li>
+                                <li>Check for interference</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Monitor host availability
+while true; do
+    if ping -c 1 -W 1 host.com >/dev/null; then
+        echo "$(date): Host is up"
+    else
+        echo "$(date): Host is down"
+    fi
+    sleep 60
+done
+
+# Check multiple hosts
+check_hosts() {
+    for host in "$@"; do
+        if ping -c 1 -W 1 "$host" >/dev/null; then
+            echo "$host is reachable"
+        else
+            echo "$host is unreachable"
+        fi
+    done
+}
+
+# Monitor latency with threshold
+monitor_latency() {
+    threshold=$1
+    host=$2
+    ping -c 1 $host | awk -v threshold=$threshold '
+        /time=/ {
+            split($7, a, "=")
+            if (a[2] > threshold)
+                print "High latency: " a[2] "ms"
+        }'
+}</code></pre>
+                </div>
+
+                <div class="performance-analysis">
+                    <h3>Performance Analysis</h3>
+                    <pre><code># Calculate average RTT
+ping -c 100 example.com | tail -1 | awk '{print $4}' | cut -d '/' -f 2
+
+# Monitor jitter
+ping example.com | awk '
+    /time=/ {
+        split($7, a, "=")
+        if (last) {
+            jitter = a[2] - last
+            if (jitter < 0) jitter = -jitter
+            print "Jitter: " jitter "ms"
+        }
+        last = a[2]
+    }'
+
+# Extended statistics
+ping -c 10 -q example.com | awk '
+    /min\/avg\/max/ {
+        split($4, a, "/")
+        print "Min: " a[1] "ms"
+        print "Avg: " a[2] "ms"
+        print "Max: " a[3] "ms"
+    }'</code></pre>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use appropriate packet sizes</li>
+                        <li>Set reasonable timeouts</li>
+                        <li>Consider rate limiting</li>
+                        <li>Monitor both IPv4 and IPv6</li>
+                        <li>Document baseline metrics</li>
+                        <li>Use multiple test points</li>
+                        <li>Analyze patterns over time</li>
+                        <li>Keep security in mind</li>
+                    </ul>
+                </div>
+
+                <div class="tips">
+                    <h3>Pro Tips</h3>
+                    <ul>
+                        <li>Use <code>-c</code> to limit the number of pings</li>
+                        <li>Higher response times indicate network congestion</li>
+                        <li>Packet loss suggests network problems</li>
+                        <li>Some hosts may block ICMP packets</li>
+                        <li>Use <code>ping6</code> for IPv6 addresses</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

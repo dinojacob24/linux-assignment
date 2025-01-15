@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tail Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: tail</h1>
+        <p>Output the ending of files and monitor file changes</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html" class="active">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>tail</code> command displays the end of a text file or piped data. It's particularly useful for monitoring log files in real-time with the -f option.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>tail file              # Show last 10 lines
+tail -n N file         # Show last N lines
+tail -f file          # Follow file changes
+tail -F file          # Follow and retry if file inaccessible</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Options</h3>
+                    <ul>
+                        <li><code>-n, --lines</code> - Output the last N lines</li>
+                        <li><code>-f, --follow</code> - Output appended data as file grows</li>
+                        <li><code>-F</code> - Same as -f, but retry if file inaccessible</li>
+                        <li><code>-c, --bytes</code> - Output the last N bytes</li>
+                        <li><code>--pid=PID</code> - With -f, terminate after process ID dies</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Show last 10 lines
+tail file.txt
+
+# Show last 50 lines
+tail -n 50 file.txt
+
+# Monitor file in real-time
+tail -f log.txt
+
+# Show last 100 bytes
+tail -c 100 file.txt
+
+# Monitor multiple files
+tail -f file1.log file2.log
+
+# Follow file and retry if unavailable
+tail -F /var/log/syslog</code></pre>
+                </div>
+
+                <div class="basic-usage">
+                    <h3>Basic Usage</h3>
+                    <table class="options-table">
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td>-n N</td>
+                            <td>Display last N lines</td>
+                            <td>tail -n 20 file.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-f</td>
+                            <td>Follow file changes</td>
+                            <td>tail -f log.txt</td>
+                        </tr>
+                        <tr>
+                            <td>-F</td>
+                            <td>Follow and retry if inaccessible</td>
+                            <td>tail -F app.log</td>
+                        </tr>
+                        <tr>
+                            <td>-c N</td>
+                            <td>Display last N bytes</td>
+                            <td>tail -c 100 file.txt</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Follow multiple files
+tail -f file1.log file2.log
+
+# Show last 1000 bytes
+tail -c 1000 file.txt
+
+# Follow with line numbers
+tail -f -n +1 log.txt
+
+# Follow and retry on errors
+tail -F --retry app.log
+
+# Skip first N lines then follow
+tail -n +1000 -f large.log
+
+# Follow with timestamps
+tail -f file.log | ts '[%Y-%m-%d %H:%M:%S]'
+
+# Follow and grep
+tail -f log.txt | grep --line-buffered "error"
+
+# Follow multiple files with names
+tail -f *.log | sed 's/^/[$(basename &)]: /'</code></pre>
+                </div>
+
+                <div class="log-monitoring">
+                    <h3>Log Monitoring Examples</h3>
+                    <pre><code># Monitor multiple logs with colors
+monitor_logs() {
+    for log in "$@"; do
+        tail -f "$log" | sed "s/^/[$(basename "$log")]: /" &
+    done
+    wait
+}
+
+# Watch for errors
+watch_errors() {
+    tail -f "$1" | grep --color=auto -i "error\\|warning\\|critical"
+}
+
+# Monitor with rate limiting
+rate_limit_tail() {
+    tail -f "$1" | pv -q -L 1k
+}
+
+# Rotate and follow
+rotate_follow() {
+    while true; do
+        tail -F "$1" 2>/dev/null || sleep 1
+    done
+}</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Process last N lines
+process_tail() {
+    tail -n "$1" "$2" | while read -r line; do
+        # Process each line
+        echo "[$(date)]: $line"
+    done
+}
+
+# Monitor and notify
+monitor_notify() {
+    tail -f "$1" | while read -r line; do
+        if echo "$line" | grep -q "error"; then
+            notify-send "Error detected" "$line"
+        fi
+    done
+}
+
+# Batch tail processing
+batch_tail() {
+    for file in "$@"; do
+        echo "=== Last 10 lines of $file ==="
+        tail -n 10 "$file"
+        echo
+    done
+}</code></pre>
+                </div>
+
+                <div class="real-time-monitoring">
+                    <h3>Real-time Monitoring</h3>
+                    <pre><code># Monitor with highlighting
+tail -f log.txt | highlight_pattern() {
+    awk '
+        /ERROR/ {print "\033[31m" $0 "\033[0m"}
+        /WARN/  {print "\033[33m" $0 "\033[0m"}
+        /INFO/  {print "\033[32m" $0 "\033[0m"}
+    '
+}
+
+# Follow with rate display
+tail -f access.log | pv -l -i10 -r > /dev/null
+
+# Monitor multiple logs with timestamps
+tail -f *.log | awk '{print strftime("[%Y-%m-%d %H:%M:%S]"), $0}'
+
+# Follow and aggregate
+tail -f app.log | awk '{count[$1]++} 
+    END {for (key in count) print key, count[key]}'</code></pre>
+                </div>
+
+                <div class="performance">
+                    <h3>Performance Considerations</h3>
+                    <ul>
+                        <li><strong>Memory Usage:</strong>
+                            <ul>
+                                <li>Minimal memory footprint</li>
+                                <li>Efficient for continuous monitoring</li>
+                                <li>Buffer management for -f option</li>
+                            </ul>
+                        </li>
+                        <li><strong>CPU Usage:</strong>
+                            <ul>
+                                <li>Low CPU usage in normal operation</li>
+                                <li>Consider filtering for high-volume logs</li>
+                                <li>Use appropriate buffer sizes</li>
+                            </ul>
+                        </li>
+                        <li><strong>File System Impact:</strong>
+                            <ul>
+                                <li>Minimal disk I/O</li>
+                                <li>Handles log rotation</li>
+                                <li>Works with network filesystems</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Common Issues:</strong>
+                            <ul>
+                                <li>File permission problems</li>
+                                <li>File rotation issues</li>
+                                <li>Network filesystem delays</li>
+                                <li>Buffer overflow</li>
+                            </ul>
+                        </li>
+                        <li><strong>Solutions:</strong>
+                            <ul>
+                                <li>Use -F for rotated logs</li>
+                                <li>Check file permissions</li>
+                                <li>Adjust buffer sizes</li>
+                                <li>Monitor system resources</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Use -F for log files</li>
+                        <li>Implement proper error handling</li>
+                        <li>Consider log rotation</li>
+                        <li>Monitor resource usage</li>
+                        <li>Filter output when needed</li>
+                        <li>Use appropriate buffer sizes</li>
+                        <li>Handle interrupts gracefully</li>
+                        <li>Document monitoring scripts</li>
+                        <li>Implement timeout mechanisms</li>
+                        <li>Consider security implications</li>
+                    </ul>
+                </div>
+
+                <div class="alternatives">
+                    <h3>Modern Alternatives</h3>
+                    <ul>
+                        <li><strong>less:</strong> Interactive file viewing
+                            <pre><code>less +F file.txt</code></pre>
+                        </li>
+                        <li><strong>multitail:</strong> Advanced log monitoring
+                            <pre><code>multitail file1.log file2.log</code></pre>
+                        </li>
+                        <li><strong>logwatch:</strong> Log analysis
+                            <pre><code>logwatch --detail high</code></pre>
+                        </li>
+                        <li><strong>glogg:</strong> GUI log viewer
+                            <pre><code>glogg large.log</code></pre>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

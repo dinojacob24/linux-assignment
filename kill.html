@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kill Command - Linux Commands Guide</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Linux Command: kill</h1>
+        <p>Terminate or send signals to processes</p>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="../linux_commands.html">Home</a>
+                <a href="top.html">top</a>
+                <a href="kill.html" class="active">kill</a>
+                <a href="ifconfig.html">ifconfig</a>
+                <a href="ping.html">ping</a>
+                <a href="ssh.html">ssh</a>
+                <a href="scp.html">scp</a>
+                <a href="curl.html">curl</a>
+                <a href="diff.html">diff</a>
+                <a href="head.html">head</a>
+                <a href="tail.html">tail</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <section class="command-section">
+            <div class="command-details">
+                <h2>Command Overview</h2>
+                <p>The <code>kill</code> command is used to send signals to processes. While its name implies termination, it can actually send various signals to processes for different purposes.</p>
+
+                <div class="syntax-box">
+                    <h3>Basic Syntax</h3>
+                    <pre><code>kill [options] PID         # Send signal to process by PID
+kill -l                  # List all available signals
+kill -SIGNAL PID         # Send specific signal by name
+kill -s SIGNAL PID       # Send specific signal by name</code></pre>
+                </div>
+
+                <div class="key-options">
+                    <h3>Common Signals</h3>
+                    <ul>
+                        <li><code>SIGTERM (15)</code> - Graceful termination (default)</li>
+                        <li><code>SIGKILL (9)</code> - Immediate termination</li>
+                        <li><code>SIGHUP (1)</code> - Hangup signal</li>
+                        <li><code>SIGINT (2)</code> - Interrupt signal (Ctrl+C)</li>
+                        <li><code>SIGSTOP (19)</code> - Stop process</li>
+                    </ul>
+                </div>
+
+                <div class="examples">
+                    <h3>Common Examples</h3>
+                    <pre><code># Gracefully terminate process 1234
+kill 1234
+
+# Force kill a process
+kill -9 1234
+
+# Kill all processes matching 'firefox'
+killall firefox
+
+# Send HUP signal to reload configuration
+kill -HUP 1234
+
+# Kill all processes of a specific user
+killall -u username
+
+# List all running processes of 'firefox'
+pgrep firefox</code></pre>
+                </div>
+
+                <div class="signal-details">
+                    <h3>Important Signals</h3>
+                    <table class="signal-table">
+                        <tr>
+                            <th>Signal</th>
+                            <th>Number</th>
+                            <th>Description</th>
+                            <th>Usage</th>
+                        </tr>
+                        <tr>
+                            <td>SIGHUP</td>
+                            <td>1</td>
+                            <td>Hangup</td>
+                            <td>Reload configuration</td>
+                        </tr>
+                        <tr>
+                            <td>SIGINT</td>
+                            <td>2</td>
+                            <td>Interrupt</td>
+                            <td>Same as Ctrl+C</td>
+                        </tr>
+                        <tr>
+                            <td>SIGQUIT</td>
+                            <td>3</td>
+                            <td>Quit</td>
+                            <td>Quit with core dump</td>
+                        </tr>
+                        <tr>
+                            <td>SIGKILL</td>
+                            <td>9</td>
+                            <td>Kill</td>
+                            <td>Immediate termination</td>
+                        </tr>
+                        <tr>
+                            <td>SIGTERM</td>
+                            <td>15</td>
+                            <td>Terminate</td>
+                            <td>Graceful shutdown</td>
+                        </tr>
+                        <tr>
+                            <td>SIGSTOP</td>
+                            <td>19</td>
+                            <td>Stop</td>
+                            <td>Pause execution</td>
+                        </tr>
+                        <tr>
+                            <td>SIGCONT</td>
+                            <td>18</td>
+                            <td>Continue</td>
+                            <td>Resume execution</td>
+                        </tr>
+                        <tr>
+                            <td>SIGUSR1</td>
+                            <td>10</td>
+                            <td>User defined</td>
+                            <td>Application specific</td>
+                        </tr>
+                        <tr>
+                            <td>SIGUSR2</td>
+                            <td>12</td>
+                            <td>User defined</td>
+                            <td>Application specific</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="process-management">
+                    <h3>Process Management Tools</h3>
+                    <pre><code># Find process ID by name
+pidof process_name
+
+# Find process details
+pgrep -a process_name
+
+# Kill all processes by name
+pkill process_name
+
+# Kill processes by pattern
+pkill -f "pattern"
+
+# Kill processes by user
+pkill -u username
+
+# Kill oldest process of a name
+pkill -o process_name
+
+# Kill newest process of a name
+pkill -n process_name</code></pre>
+                </div>
+
+                <div class="advanced-usage">
+                    <h3>Advanced Usage</h3>
+                    <pre><code># Kill process group
+kill -TERM -pid
+
+# Kill all processes except shell
+kill -9 -1
+
+# Send multiple signals
+kill -STOP pid && sleep 5 && kill -CONT pid
+
+# Kill processes older than time
+find /proc -maxdepth 1 -user username -mmin +120 \
+  -exec basename {} \; | xargs kill
+
+# Kill by percentage CPU usage
+ps aux | awk '$3 > 50 {print $2}' | xargs kill
+
+# Kill zombie processes
+ps aux | awk '$8 ~ /Z/ {print $2}' | xargs kill -9</code></pre>
+                </div>
+
+                <div class="scripting">
+                    <h3>Scripting Examples</h3>
+                    <pre><code># Monitor and kill high CPU processes
+while true; do
+    ps aux | awk '$3 > 90 {print $2}' | xargs kill
+    sleep 60
+done
+
+# Graceful shutdown script
+for pid in $(pgrep process_name); do
+    kill -TERM $pid
+    sleep 2
+    if kill -0 $pid 2>/dev/null; then
+        kill -KILL $pid
+    fi
+done
+
+# Clean up defunct processes
+for pid in $(ps -A -ostat,ppid | awk '/[zZ]/ {print $2}'); do
+    kill -9 $pid
+done</code></pre>
+                </div>
+
+                <div class="troubleshooting">
+                    <h3>Troubleshooting</h3>
+                    <ul>
+                        <li><strong>Process won't die:</strong> 
+                            <ul>
+                                <li>Check if process is in uninterruptible sleep (D state)</li>
+                                <li>Try SIGKILL (-9) as last resort</li>
+                                <li>Check for zombie processes</li>
+                                <li>Verify process ownership</li>
+                            </ul>
+                        </li>
+                        <li><strong>Permission denied:</strong>
+                            <ul>
+                                <li>Verify process ownership</li>
+                                <li>Check if sudo is required</li>
+                                <li>Verify user permissions</li>
+                            </ul>
+                        </li>
+                        <li><strong>No such process:</strong>
+                            <ul>
+                                <li>Verify PID is correct</li>
+                                <li>Check if process has already terminated</li>
+                                <li>Use pgrep to find correct PID</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="best-practices">
+                    <h3>Best Practices</h3>
+                    <ul>
+                        <li>Always try SIGTERM first before SIGKILL</li>
+                        <li>Verify process ID before killing</li>
+                        <li>Use pkill/killall with caution</li>
+                        <li>Check child processes</li>
+                        <li>Document signal handlers in applications</li>
+                        <li>Implement proper shutdown procedures</li>
+                        <li>Monitor process states</li>
+                        <li>Use appropriate signal for the task</li>
+                    </ul>
+                </div>
+
+                <div class="tips">
+                    <h3>Pro Tips</h3>
+                    <ul>
+                        <li>Always try SIGTERM (default) before using SIGKILL</li>
+                        <li>Use <code>killall</code> to kill processes by name</li>
+                        <li>Use <code>pkill</code> for more flexible process matching</li>
+                        <li>Check process status with <code>ps</code> before killing</li>
+                        <li>Use <code>pgrep</code> to find process IDs</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <h3>⚠️ Important Warnings</h3>
+                    <ul>
+                        <li>SIGKILL (-9) should be used as a last resort</li>
+                        <li>Killing system processes can destabilize your system</li>
+                        <li>Always verify the PID before killing a process</li>
+                        <li>Some processes may spawn new processes after being killed</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
